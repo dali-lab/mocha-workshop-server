@@ -1,9 +1,9 @@
 import User from '../models/user';
 
-const updateUser = async (req, res, next) => {
-    const { username, password, email } = req.body;
+const updateUser = (userId, info) => {
+    const { username, password, email } = info;
 
-    User.findById(req.user.id).then((user) => {
+    User.findById(userId).then((user) => {
         if (username) {
             user.username = username;
         }
