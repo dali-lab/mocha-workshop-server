@@ -6,6 +6,9 @@ import app from '../src/server';
 describe('Posts', () => {
     describe('#getAll', () => {
         // create tests here
+        it('should be working out for some odd reason', () => {
+            expect('ijemma').equal('ijemma');
+        });
     });
 
     describe('#getOne', () => {

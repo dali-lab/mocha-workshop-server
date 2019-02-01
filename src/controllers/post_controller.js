@@ -1,50 +1,50 @@
 import Post from '../models/post';
 
+const createPost = (data) => {
+    const newPost = new Post({ title: data.title, body: data.body, author: data.author });
+    return newPost.save();
+};
 
-const PostController = {};
+const updatePost = (data) => {
+    Post.findById(data.id).then((res) => {
+        res.title = data.title;
+        res.body = data.body;
+        res.author = data.author;
+        return res.save();
+    });
+};
 
-export const createPost = (data) => {
-  let newPost = new Post({ title: data.title, body: data.body, author: data.author });
-  newPost.save((err, post) => {
-    if (err) console.log("Error with positing");
-    return post.id;
-  })
-}
+const getPost = (id) => {
+    return Post.findById(id);
+};
 
-export const updatePost = (data) => {
-  Post.findById(data.id).then((res) => {
-    res.title = data.title;
-    res.body = data.body;
-    res.author = data.author;
-  })
-}
+const getAllPosts = () => {
+    return Post.find();
+};
 
-export const getPost = (id) => {
-  Post.findById(id).then((res) => {
-    return res;
-  })
-}
+const upvote = (id) => {
+    Post.findById(id).then((res) => {
+        const upvotes = res.upvotes;
+        res.upvotes = upvotes + 1;
+        return res.save();
+    });
+};
 
-export const getAllPosts = () => {
-  Post.find().then((res) => {
-    return res;
-  })
-}
+const downvote = (id) => {
+    Post.findById(id).then((res) => {
+        const upvotes = res.upvotes;
+        res.upvotes = upvotes - 1;
+        return res.save();
+    });
+};
 
-export const upvote = (id) => {
-  Post.findById(id).then((res) => {
-    let upvotes = res.upvotes;
-    res.upvotes = upvotes + 1;
-    res.save();
-  })
-}
-
-export const downvote = (id) => {
-  Post.findById(id).then((res) => {
-    let upvotes = res.upvotes;
-    res.upvotes = upvotes - 1;
-    res.save();
-  })
-}
+const PostController = {
+    createPost,
+    updatePost,
+    getPost,
+    getAllPosts,
+    upvote,
+    downvote,
+};
 
 export default PostController;

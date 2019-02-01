@@ -1,15 +1,59 @@
 import { Router } from 'express';
-import * as PostController from '../controllers/post_controller';
+import PostController from '../controllers/post_controller';
 
 const postRouter = Router();
 
-postRouter.get('/getPosts', PostController.getAllPosts);
-postRouter.get('/getPost/:id', PostController.getPost);
+postRouter.get('/getPosts', (req, res) => {
+  PostController.getAllPosts().then((posts) => {
+    res.status(200).send(posts);
+  })
+});
 
-postRouter.post('/updatePost', PostController.updatePost);
-postRouter.post('/addPost', PostController.createPost);
+postRouter.get('/getPost/:id', (req, res) => {
+  PostController.getPost(req.id).then((post) => {
+    res.status(200).send(posts);
+  });
+});
 
-postRouter.post('/upvote/:id', PostController.upvote);
-postRouter.post('/downvote/:id', PostController.downvote);
+postRouter.post('/updatePost', (req, res) => {
+  PostController.updatePost(req.body)
+  .then((response) => {
+    res.status(200).send('Post updated');
+
+  })
+  .catch((error) => {
+    res.status(404).send(error);
+  })
+});
+
+postRouter.post('/addPost', (req, res) => {
+  PostController.createPost(req.body)
+  .then((response) => {
+    res.status(200).send('Post created');
+  })
+  .catch((error) => {
+    res.status(404).send(error);
+  })
+});
+
+postRouter.post('/upvote/:id', (req, res) => {
+  PostController.upvote(req.id)
+  .then((response) => {
+    res.status(200).send('Upvoted post');
+  })
+  .catch((error) => {
+    res.status(404).send(error);
+  })
+});
+
+postRouter.post('/downvote/:id', (req, res) => {
+  PostController.upvote(req.id)
+  .then((response) => {
+    res.status(200).send('Downvoted post');
+  })
+  .catch((error) => {
+    res.status(404).send(error);
+  })
+});
 
 export default postRouter;
