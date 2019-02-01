@@ -37,7 +37,7 @@ app.use(passport.session());
 
 // default index route
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the DPlanner API!' });
+    res.json({ message: 'Welcome to the Unit Testing API!' });
 });
 
 // configure all our sub-routers
@@ -58,7 +58,7 @@ app.listen(port);
 console.log(`listening on: ${port}`);
 
 // DB Setup
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/dplanner';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/unit-testing';
 const mongooseOptions = {
     useNewUrlParser: true,
     useCreateIndex: true,
