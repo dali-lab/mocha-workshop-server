@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 // configure all our sub-routers
-app.use('/auth', requireAuth, authRouter);
+app.use('/auth', authRouter);
 app.use('/user', requireAuth, userRouter);
 app.use('/posts', requireAuth, postRouter);
 
