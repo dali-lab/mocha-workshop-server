@@ -1,9 +1,9 @@
 import postRouter from './post';
 import userRouter from './user';
-import authRotuer from './auth';
+import authRouter from './auth';
 
 export {
     postRouter,
     userRouter,
-    authRouter
+    authRouter,
 };
