@@ -1,9 +1,10 @@
 import User from '../models/user';
 
 const updateUser = (userId, info) => {
-    const { username, password, email } = info;
+    const { username = null, password = null, email = null } = info;
+    console.log(userId);
 
-    User.findById(userId).then((user) => {
+    return User.findOne({ _id: userId }).then((user) => {
         if (username) {
             user.username = username;
         }
