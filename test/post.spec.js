@@ -33,14 +33,14 @@ describe('Posts', () => {
     });
 
     describe('#getAll', () => {
-        it('grab all posts - zero posts', (done) => {
+        it('grab all posts', (done) => {
             request(app)
                 .get('/posts/getPosts')
                 .set({ Authorization: `Bearer ${token}` })
                 .end((err, res) => {
                     if (err) { done(err); }
                     expect(res.status).equal(200);
-                    expect(res.body.length).equal(0);
+                    expect(res.body).to.be.a('array');
                     done();
                 });
         });
@@ -55,6 +55,8 @@ describe('Posts', () => {
                     author: userID,
                 })
                 .end((err, res) => {
+                    if (err) { done(err); }
+                    expect(res.status).equal(200);
                     done();
                 });
         });

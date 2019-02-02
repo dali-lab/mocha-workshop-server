@@ -10,16 +10,16 @@ postRouter.get('/getPosts', (req, res) => {
 });
 
 postRouter.get('/getPost/:id', (req, res) => {
-  PostController.getPost(req.id).then((post) => {
-    res.status(200).send(posts);
+  console.log(req);
+  PostController.getPost(req.params.id).then((post) => {
+    res.status(200).send(post);
   });
 });
 
-postRouter.post('/updatePost', (req, res) => {
-  PostController.updatePost(req.body)
+postRouter.post('/updatePost/:id', (req, res) => {
+  PostController.updatePost(req.params.id, Object.assign(req.body, { author: req.user._id }))
   .then((response) => {
     res.status(200).send('Post updated');
-
   })
   .catch((error) => {
     res.status(404).send(error);
@@ -27,7 +27,7 @@ postRouter.post('/updatePost', (req, res) => {
 });
 
 postRouter.post('/addPost', (req, res) => {
-  PostController.createPost(req.body)
+  PostController.createPost(Object.assign(req.body, { author: req.user._id }))
   .then((response) => {
     res.status(200).send('Post created');
   })
@@ -37,7 +37,7 @@ postRouter.post('/addPost', (req, res) => {
 });
 
 postRouter.post('/upvote/:id', (req, res) => {
-  PostController.upvote(req.id)
+  PostController.upvote(req.params.id)
   .then((response) => {
     res.status(200).send('Upvoted post');
   })
@@ -47,7 +47,7 @@ postRouter.post('/upvote/:id', (req, res) => {
 });
 
 postRouter.post('/downvote/:id', (req, res) => {
-  PostController.upvote(req.id)
+  PostController.downvote(req.params.id)
   .then((response) => {
     res.status(200).send('Downvoted post');
   })

@@ -5,12 +5,14 @@ const createPost = (data) => {
     return newPost.save();
 };
 
-const updatePost = (data) => {
-    Post.findById(data.id).then((res) => {
-        res.title = data.title;
-        res.body = data.body;
-        res.author = data.author;
-        return res.save();
+const updatePost = (id, data) => {
+    return new Promise((resolve, reject) => {
+        Post.findById(id).then((res) => {
+            res.title = data.title;
+            res.body = data.body;
+            res.author = data.author;
+            resolve(res.save());
+        });
     });
 };
 
@@ -23,18 +25,22 @@ const getAllPosts = () => {
 };
 
 const upvote = (id) => {
-    Post.findById(id).then((res) => {
-        const upvotes = res.upvotes;
-        res.upvotes = upvotes + 1;
-        return res.save();
+    return new Promise((resolve, reject) => {
+        Post.findById(id).then((res) => {
+            const upvotes = res.upvotes;
+            res.upvotes = upvotes + 1;
+            resolve(res.save());
+        });
     });
 };
 
 const downvote = (id) => {
-    Post.findById(id).then((res) => {
-        const upvotes = res.upvotes;
-        res.upvotes = upvotes - 1;
-        return res.save();
+    return new Promise((resolve, reject) => {
+        Post.findById(id).then((res) => {
+            const upvotes = res.upvotes;
+            res.upvotes = upvotes - 1;
+            resolve(res.save());
+        });
     });
 };
 
