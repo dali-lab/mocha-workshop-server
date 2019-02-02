@@ -8,7 +8,7 @@ describe('Authentication', () => {
         // create tests here
     });
 
-    describe('#signin', () => { 
+    describe('#signin', () => {
         // create tests here
     });
 });
